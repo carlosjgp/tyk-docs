@@ -15,12 +15,12 @@ info:
     * Hot reloads / reloading a cluster configuration
     * OAuth client creation (only when not using the Dashboard)
     
-    In order to use the REST API, you’ll need to set the secret parameter in your tyk.conf file.
+    In order to use the REST API, you’ll need to set the `secret` parameter in your tyk.conf file.
     
     The shared secret you set should then be sent along as a header with each REST API Request in order for it to be successful:
     
     ```
-    x-tyk-authorization: 352d20ee67be67f6340b4c0605b044bc4
+    x-tyk-authorization: <your-secret>
     ```
     <br/>
     <b>The Tyk Gateway API is subsumed by the Tyk Dashboard API in Pro installations.</b>
@@ -92,6 +92,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/APIDefinition'
+              example:
+                - $ref: "#/components/examples/api"
     post:
       description: |-
         Create API
@@ -105,11 +107,7 @@ paths:
             schema:
               $ref: "#/components/schemas/APIDefinition"
             example:
-              name: "TestAPI"
-              use_keyless: true
-              active: true
-              proxy:
-                listen_path: "/test"
+              $ref: "#/components/examples/api"
       responses:
         '200':
           description: API created
@@ -152,6 +150,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/APIDefinition"
+              example:
+                $ref: "#/components/examples/api"
     put:
       description: |
         Updating an API definition uses the same signature an object as a `POST`, however it will first ensure that the API ID that is being updated is the same as the one in the object being `PUT`.
@@ -167,12 +167,7 @@ paths:
             schema:
               $ref: "#/components/schemas/APIDefinition"
             example:
-              api_id: "apiID"
-              name: "TestAPI"
-              use_keyless: true
-              active: true
-              proxy:
-                listen_path: "/test"
+              $ref: "#/components/examples/api"
       responses:
         '200':
           description: API updated
@@ -351,13 +346,7 @@ paths:
             schema:
               $ref: "#/components/schemas/SessionState"
             example:
-              quota_max: 60
-              quota_renews: 1406121006
-              quota_renewal_rate: 60
-              allowance: 100
-              rate: 100
-              per: 5
-              org_id: 53ac07777cbb8c2d53000002
+              $ref: '#/components/examples/key'
       responses:
         '200':
           description: New Key added
@@ -399,6 +388,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SessionState'
+              example:
+                $ref: '#/components/examples/key'
     put:
       summary: Update Key or Add custom Key
       description: |-
@@ -412,13 +403,7 @@ paths:
             schema:
               $ref: "#/components/schemas/SessionState"
             example:
-              quota_max: 60
-              quota_renews: 1406121006
-              quota_renewal_rate: 60
-              allowance: 100
-              rate: 100
-              per: 5
-              org_id: 53ac07777cbb8c2d53000002
+              $ref: '#/components/examples/key'
       parameters:
         - description: |-
             Adding the suppress_reset parameter and setting it to 1, will cause Tyk to not reset the quota limit that is in the current live quota manager. By default Tyk will reset the quota in the live quota manager (initialising it) when adding a key. Adding the `suppress_reset` flag to the URL parameters will avoid this behaviour.
@@ -481,9 +466,7 @@ paths:
             schema:
               $ref: "#/components/schemas/NewClientRequest"
             example:
-              client_id: test
-              api_id: id
-              policy_id: policy
+              $ref: '#/components/examples/oauth_client'
       responses:
         '200':
           description: Client created
@@ -491,6 +474,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NewClientRequest'
+              example:
+                $ref: '#/components/examples/oauth_client'
   '/oauth/clients/{apiID}':
     get:
       summary: List oAuth clients
@@ -541,6 +526,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NewClientRequest'
+              example:
+                $ref: '#/components/examples/oauth_client'
     delete:
       summary: Delete oAuth client
       description: Please note that tokens issued with the client ID will still be valid until they expire.
@@ -604,6 +591,9 @@ paths:
                 type: array
                 items:
                   type: string
+              example:
+                - "tok1"
+                - "tok2"
   '/oauth/refresh/{keyName}':
     delete:
       summary: Invalidate OAuth refresh token
@@ -692,6 +682,10 @@ paths:
                     type: array
                     items:
                       type: string
+              example:
+                keys:
+                  - "key1"
+                  - "key2"
     post:
       summary: Create an organisation key
       description: |-
@@ -705,13 +699,7 @@ paths:
             schema:
               $ref: "#/components/schemas/SessionState"
             example:
-              quota_max: 60
-              quota_renews: 1406121006
-              quota_renewal_rate: 60
-              allowance: 100
-              rate: 100
-              per: 5
-              org_id: 53ac07777cbb8c2d53000002
+              $ref: "#/components/examples/key/value"
       responses:
         '200':
           description: New Key added
@@ -759,13 +747,7 @@ paths:
             schema:
               $ref: "#/components/schemas/SessionState"
             example:
-              quota_max: 60
-              quota_renews: 1406121006
-              quota_renewal_rate: 60
-              allowance: 100
-              rate: 100
-              per: 5
-              org_id: 53ac07777cbb8c2d53000002
+              $ref: '#/components/examples/key'
       parameters:
         - description: |-
             Adding the `reset_quota` parameter and setting it to 1, will cause Tyk reset the organisations quota in the live quota manager, it is recommended to use this mechanism to reset organisation-level access if a monthly subscription is in place.
@@ -818,6 +800,31 @@ paths:
         '200':
           $ref: '#/components/responses/apiStatusMessage'
 components:
+  examples:
+    key:
+      summary: Example key
+      value:
+        quota_max: 60
+        quota_renews: 1406121006
+        quota_renewal_rate: 60
+        allowance: 100
+        rate: 100
+        per: 5
+        org_id: 53ac07777cbb8c2d53000002
+    api:
+      summary: API example
+      value:
+        name: "TestAPI"
+        use_keyless: true
+        active: true
+        proxy:
+          listen_path: "/test"
+    oauth_client:
+      summary: oAuth client
+      value:
+        client_id: test
+        api_id: id
+        policy_id: policy
   responses:
     apiModifyKeySuccess:
       description: apiModifyKeySuccess represents when a Key modification was successful
