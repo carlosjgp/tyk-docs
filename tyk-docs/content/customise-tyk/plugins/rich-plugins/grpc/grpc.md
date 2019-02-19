@@ -17,17 +17,17 @@ From the [gRPC documentation][1]:
 Using Tyk with your gRPC client and server is very easy. Since gRPC uses HTTP/2, you need to enable it by setting `enable_http2=true` for `Downstream-Tyk` and `proxy_enable_http2=true` for `Tyk-Upstream` connections. You also need to set your `listen_path` in your API definitions. 
 
 ### Mutual Authentication
-Tyk supports Mutual Authentication in gRPC. See https://tyk.io/docs/security/tls-and-ssl/mutual-tls/ to configure Mutual Authentication in Tyk. Now, everything will be same as default Mutual Authentication.
+Tyk supports Mutual Authentication in gRPC. See [Mutual TLS](https://tyk.io/docs/security/tls-and-ssl/mutual-tls/) to configure Mutual Authentication in Tyk. Now, everything will be same as default Mutual Authentication.
 
 ### Basic Authentication
-Tyk supports Basic Authentication in gRPC. See https://tyk.io/docs/security/your-apis/basic-auth/ to configure Basic Authentication in Tyk. 
+Tyk supports Basic Authentication in gRPC. See [Basic Authentication](https://tyk.io/docs/security/your-apis/basic-auth/) to configure Basic Authentication in Tyk. 
 
 After setting your Tyk configuration, all you need to do is to send credentials with the correct base64 format in an `Authorization` header from your gRPC client. 
 
 `Basic base64Encode(username:password)`
 
 ### Token Based Authentication
-Tyk supports Token Based Authentication in gRPC. See https://tyk.io/docs/security/your-apis/bearer-tokens/ to configure Token Based Authentication in Tyk. 
+Tyk supports Token Based Authentication in gRPC. See [Bearer Tokens](https://tyk.io/docs/security/your-apis/bearer-tokens/) to configure Token Based Authentication in Tyk. 
 
 After setting your Tyk configuration, all you need to do is to send a token in an `Authorization` header from your gRPC client.
 
