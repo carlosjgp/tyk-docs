@@ -235,7 +235,7 @@ Set these options to hard-code values into the way the HTTP server behaves.
 
 ```
 "http_server_options": {
-  "enable_http2": false
+  "enable_http2": true,
   "override_defaults": false,
   "use_ssl": false,
   "enable_websockets": false,
@@ -258,7 +258,7 @@ Set these options to hard-code values into the way the HTTP server behaves.
 
 #### <a name="enable_http2"></a> enable_http2
 
-Set to true for HTTP 2 connections.
+This defaults to true for HTTP/2 connections.
 
 #### <a name="http_server_options-use_ssl"></a> http_server_options.use_ssl
 
@@ -473,7 +473,7 @@ Set this value to `true` to enable this node to bind APIs to custom domains set 
 
 ### <a name="proxy_enable_http2"></a> proxy_enable_http2
 
-Set this to `true` for HTTP 2 upstream connections.
+This defaults to `true` for HTTP/2 upstream connections.
 
 
 ### <a name="enable_jsvm"></a> enable_jsvm
