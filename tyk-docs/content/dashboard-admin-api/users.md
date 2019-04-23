@@ -79,8 +79,22 @@ admin-auth: 12345
 ```
 {
   "Status": "OK",
-  "Message": "User created",
-  "Meta": ""
+  "Message": "28abb4e844b745796762befa6ec343d4",
+  "Meta": {
+    "api_model": {},
+    "first_name": "Jason",
+    "last_name": "Jasonson",
+    "email_address": "jason@jasonsonson.com",
+    "org_id": "5cb86df95647c800016dce09",
+    "active": true,
+    "id": "5cbef00d083f48acda74c7a4",
+    "access_key": "28abb4e844b745796762befa6ec343d4",
+    "user_permissions": {
+      "IsAdmin": "admin",
+      "ResetPassword": "admin"
+    },
+    "group_id": ""
+  }
 }
 ```
 
